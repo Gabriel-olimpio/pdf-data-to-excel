@@ -1,6 +1,24 @@
 import pdfplumber
-from openpyxl import Workbook
-from openpyxl.styles import Font
+import os
+from pathlib import Path
+from openpyxl import load_workbook
+
+# Get downloads path
+def get_directory():
+    path = Path()
+    download_path = str(path.home() / 'Downloads')
+    return download_path + '/'
+
+# Get specific file in downloads directory
+def get_file(directory):
+    files = os.listdir(directory)
+    for f in files:
+        try:
+            if 'fatura_' in f:
+                return f
+        except FileNotFoundError:
+            print(FileNotFoundError)
+
 
 def open_pdf(file):
     with pdfplumber.open(file) as pdf:
@@ -17,27 +35,32 @@ def organize_list(data):
     py_excel(data)
 
 def py_excel(d):
-    wb = Workbook()
+    # loading file
+    book = load_workbook('Planilha modif nova.xlsx')  # worksheet wanted
 
-    # Criando page no excel
-    wb.create_sheet('fatura_nubank')
-    fatura_page = wb['fatura_nubank']
+    # creating page
 
-    # Header da planilha
-    fatura_page.append(['Nome', 'Valor'])
+    # book.create_sheet('Nubank Fatura')
+    fatura_page = book['Nubank Fatura']
 
-    # Adicionando os elementos Nome, Valor
-    for i in range(len(d)):
-        fatura_page.append([*d[i]])
+    for i, row in enumerate(d):
+        for j, value in enumerate(row):
+            fatura_page.cell(row=i + 2, column=j + 1, value=value)
 
-    # Salvando o arquivo .xlsx
-    wb.save('Arquivo_novo_fatura.xlsx')
+    # printing values
+    for row in fatura_page.iter_rows(min_row=2, max_row=len(d), max_col=2, values_only=True):
+        print(row)
+
+    for row in fatura_page.iter_rows(min_row=2, max_row=len(d), max_col=2, values_only=False):
+        print(row)
+
+    # save modifications
+    book.save('Planilha modif nova.xlsx')
 
 def main():
-    user = "fatura_test.pdf"
-    open_pdf(user)
+    d = get_directory()
+    user = get_file(d)
+    open_pdf(d+user)
 
 if __name__ == "__main__":
     main()
-
-
