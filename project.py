@@ -19,7 +19,6 @@ def get_file(directory):
         except FileNotFoundError:
             print(FileNotFoundError)
 
-
 # The data is located at the end of pdf (page 4 -> index 3)
 def open_pdf(file):
     with pdfplumber.open(file) as pdf:

@@ -8,7 +8,7 @@ This project automates the process of extracting credit card monthly expenses fr
  - Populates the data into a new or existing Excel file.
 
 # Requirements
-- Python 3 (tested with version X.X - replace with your tested version) How to install Python.
+- Python 3 
 
 **Libraries:**
 
