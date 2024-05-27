@@ -1,5 +1,5 @@
 # Credit Card Monthly Expenses Automation
-#### Video Demo:  <URL HERE>
+#### Video Demo:  <https://youtu.be/BxqYvYgHhn0>
 
 #### Description
 
