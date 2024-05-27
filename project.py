@@ -1,5 +1,5 @@
 import pdfplumber
-import os
+import os, openpyxl
 from pathlib import Path
 from openpyxl import load_workbook
 
@@ -36,13 +36,28 @@ def organize_list(data):
     py_excel(data)
 
 def py_excel(d):
-    # loading file
-    book = load_workbook('Planilha modif nova.xlsx')  # worksheet wanted
 
-    # creating page
-    # book.create_sheet('Nubank Fatura')  # create sheet page or
-    fatura_page = book['Nubank Fatura']  # access sheet page
+    # create new workbook
+    wb = openpyxl.Workbook()
 
+    '''
+        if you want to load an existing file
+        wb = load_workbook('woksheet.xlsx')   worksheet wanted
+    '''
+
+    '''
+        creating sheet page
+        wb.create_sheet('Nubank Fatura')
+
+        access sheet page
+        fatura_page = wb['Nubank Fatura'] 
+    '''
+    
+    fatura_page = wb.create_sheet('Credit_expenses')
+
+    # Columns
+    fatura_page.append(['Name', 'Amount']) 
+    
     # insert values in each cell
     for i, row in enumerate(d):
         for j, value in enumerate(row):
@@ -55,7 +70,7 @@ def py_excel(d):
         print(row)
 
     # save modifications
-    book.save('Planilha modif nova.xlsx')
+    wb.save('New_worksheet.xlsx')
 
 def main():
     d = get_directory()

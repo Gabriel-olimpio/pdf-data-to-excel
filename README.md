@@ -1,7 +1,11 @@
 # Credit Card Monthly Expenses Automation
+#### Video Demo:  <URL HERE>
+
+#### Description
+
 This project automates the process of extracting credit card monthly expenses from a PDF document and populating them into an Excel file.
 
-**Features**
+#### Features
 
  - Extracts expense details (e.g., merchant name, amount) from a credit card statement PDF.
  - Organizes extracted data into a structured format.
